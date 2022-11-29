@@ -18,6 +18,9 @@ const mangaSchema = new Schema({
     description: {
         type: String,
     },
+    price:{
+        type: Number,
+    },
     image: {
         type: String,
     }

@@ -7,6 +7,7 @@ exports.post = (req, res) => {
         book : req.body.book,
         type : req.body.type,
         description : req.body.description,
+        price : req.body.price,
         image : req.body.image
     });
     manga.save()
@@ -63,6 +64,7 @@ exports.update = (req, res) => {
         book : req.body.book,
         type : req.body.type,
         description : req.body.description,
+        price : req.body.price,
         image : req.body.image
     })
     .then(() => {
