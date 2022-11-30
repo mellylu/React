@@ -8,6 +8,7 @@ exports.post = (req, res) => {
         type : req.body.type,
         description : req.body.description,
         price : req.body.price,
+        quantity: req.body.quantity,
         image : req.body.image
     });
     manga.save()
@@ -65,6 +66,7 @@ exports.update = (req, res) => {
         type : req.body.type,
         description : req.body.description,
         price : req.body.price,
+        quantity: req.body.quantity,
         image : req.body.image
     })
     .then(() => {

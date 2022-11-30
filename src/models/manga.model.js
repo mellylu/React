@@ -21,6 +21,9 @@ const mangaSchema = new Schema({
     price:{
         type: Number,
     },
+    quantity:{
+        type: Number,
+    },
     image: {
         type: String,
     }
