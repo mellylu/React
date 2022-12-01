@@ -13,7 +13,7 @@ var uri = process.env.URL;
 
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors())
 
 app.use('/api/v1/', apiRouter);
 

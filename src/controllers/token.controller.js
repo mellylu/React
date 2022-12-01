@@ -11,18 +11,21 @@ const sendEmail = require("../utils/sendEmail")
 
 exports.sendEmailToResetPassword = (req, res) => {
     if (req.body.email) {
-        User.findOne({
-            user: [{ email: req.body.identifer }],
-        })
+        // User.findOne({
+        //     user: [{ email: req.body.email }],
+        // })
+        User.findOne({ "email": req.body.email })
         .then((user) => {
             if (user) {
+                console.log("UUUUUUSSSSSSSSEEEEEEEEERRRRRRRRR")
+                console.log(user)
                 Token.findOne({
                     userId: user._id,
                 })
                     .then(token => {
-                        //console.log(token)
                         if (token) {
-                            sendEmail.sendEmail(req, res, token)
+
+                            sendEmail.sendEmail(req, res, token, req.body.email)
                            
                             res.status(200).send({
                                 success: true,
@@ -44,10 +47,9 @@ exports.sendEmailToResetPassword = (req, res) => {
                                 userId: user?._id,
                                 token: userToken,
                             });
-
                             token.save();
 
-                            sendEmail.sendEmail()
+                            sendEmail.sendEmail(req, res, token, req.body.email)
                             
 
                             

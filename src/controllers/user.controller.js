@@ -108,7 +108,7 @@ exports.update = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password, saltRounds),
         favoris: req.body.favoris
     })
         .then(() => {
