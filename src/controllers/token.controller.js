@@ -14,31 +14,15 @@ exports.sendEmailToResetPassword = (req, res) => {
         User.findOne({
             user: [{ email: req.body.identifer }],
         })
-        // .then(async(user) => {
-        //     if (user) {
-        //         const token = Token.findOne({
-        //             userId: user?._id,
-        //             })
-        //             if (!token) {
-        //                 token = await new Token({
-        //                     userId: user._id,
-        //                     token: crypto.randomBytes(32).toString("hex"),
-        //                 }).save();
-        //             }
-        //             const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
-        // await sendEmail(user.email, "Password reset", link);
-
-        // res.send("password reset link sent to your email account");
-      
         .then((user) => {
             if (user) {
                 Token.findOne({
                     userId: user._id,
                 })
                     .then(token => {
-                        console.log(token)
+                        //console.log(token)
                         if (token) {
-                            sendEmail.sendEmail(req, res)
+                            sendEmail.sendEmail(req, res, token)
                            
                             res.status(200).send({
                                 success: true,
@@ -96,4 +80,20 @@ exports.sendEmailToResetPassword = (req, res) => {
         message: "Missing data",
     });
 }
+}
+
+exports.formResetPassword = (req, res) => {
+    Token.findOne({ "token": req.body.token })
+    .then((data) => {
+        res.status(200).send({
+            data: data
+        })
+
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err.message || "Some error occured"
+        })
+    })
+            
 }
